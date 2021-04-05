@@ -1,0 +1,148 @@
+
+  "ids": {
+    "modelId": "ZHEMI101",
+    "manufacturerName": "Develco"
+  },
+  "endpoints": {
+    "endpointDescriptors": [
+      {
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 7,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [
+          0,
+          3,
+          1794
+        ],
+        "outputClusters": [
+          10
+        ]
+      },
+      {
+        "endpointId": 1,
+        "applicationProfileId": 49353,
+        "applicationDeviceId": 1,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          2,
+          3,
+          5
+        ],
+        "outputClusters": [
+          1
+        ]
+      }
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": {
+          "deviceTemperature": {},
+          "identify": {},
+          "scenes": {}
+        },
+        "bindings": {
+          "powerConfiguration": {}
+        }
+      },
+      "2": {
+        "clusters": {
+          "basic": {
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "metering": {
+            "attributes": [
+              {
+                "id": 0,
+                "name": "currentSummationDelivered",
+                "value": 130
+              },
+              {
+                "id": 1,
+                "name": "currentSummationReceived",
+                "value": 281474976710655
+              },
+              {
+                "id": 7
+              },
+              {
+                "id": 20
+              },
+              {
+                "id": 32
+              },
+              {
+                "id": 33
+              },
+              {
+                "id": 256
+              },
+              {
+                "id": 257
+              },
+              {
+                "id": 258
+              },
+              {
+                "id": 259
+              },
+              {
+                "id": 512
+              },
+              {
+                "id": 768
+              },
+              {
+                "id": 769,
+                "name": "multiplier",
+                "value": 1
+              },
+              {
+                "id": 770,
+                "name": "divisor",
+                "value": 1000
+              },
+              {
+                "id": 771
+              },
+              {
+                "id": 772
+              },
+              {
+                "id": 774
+              },
+              {
+                "id": 776
+              },
+              {
+                "id": 1024,
+                "name": "instantaneousDemand",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {
+          "time": {
+            "attributes": [],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        }
+      }
+    }
+  }
