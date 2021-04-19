@@ -7,17 +7,25 @@
 	"capabilities": [
 		"meter_power"
 	],
+	"capabilitiesOptions": {
+        "meter_power": {
+          	"units": "m3",
+			"title": { 
+				"en": "Water" 
+			}
+        }
+    },
 	"zigbee": {
 		"manufacturerName": "Develco",
 		"productId": ["ZHEMI101"],
 		"endpoints": {
 			"1": {
 				"clusters": [2, 3, 5],
-				"bindings": [1]
+				"bindings": []
 			},
 			"2": {
-				"clusters": [0, 3, 1794],
-				"bindings": [10]
+				"clusters": [0, 3, 1794, 2820],
+				"bindings": [1794]
 			}
 		},
 		"learnmode": {
@@ -30,5 +38,19 @@
 	"images": {
 		"large": "/drivers/watermeter_driver/assets/images/large.png",
 		"small": "/drivers/watermeter_driver/assets/images/small.png"
-	}
+	},
+	"settings": [
+		{
+			"id": "pollInterval",
+			"type": "number",
+			"label": {
+				"en": "Poll interval"
+			},
+			"value": 10,
+			"min": 1,
+			"units": {
+				"en": "minutes"
+			}
+		}
+	]
 }

@@ -8,8 +8,13 @@ const { CLUSTER, debug, ZCLNode } = require('zigbee-clusters');
 debug(true);
 class MyZigBeeDevice extends ZigBeeDevice {
 
-	async onNodeInit({ zclNode }) {
-		// // Get ZigBeeNode instance from ManagerZigBee
+	async onNodeInit() {
+	// async onNodeInit({ zclNode }) {
+		const settings = this.getSettings();
+		// console.log(settings.pollInterval);
+
+
+		// Get ZigBeeNode instance from ManagerZigBee
 		// this.homey.zigbee.getNode(this)
 		//   .then(async node => {
 		// 	// Create ZCLNode instance
@@ -19,7 +24,7 @@ class MyZigBeeDevice extends ZigBeeDevice {
 		// 	await zclNode.endpoints[2].clusters[CLUSTER.METERING.NAME].configureReporting({
 		// 		currentSummationDelivered: {
 		// 			minInterval: 0,
-		// 			maxInterval: 300,
+		// 			maxInterval: 60,
 		// 			minChange: 1
 		// 		}
 		// 	});
@@ -40,30 +45,28 @@ class MyZigBeeDevice extends ZigBeeDevice {
 		// this.registerCapability('meter_power', CLUSTER.METERING);
 		// this.registerCapability('meter_power', CLUSTER.METERING, { 
 		// 	endpointId: 2,
-		// 	getOpts: {
-		// 		getOnStart: true,
-		// 		// getOnOnline: true,
-		// 		// pollInterval: 10000, // in ms
-		// 	},
-			
-		// 	// setParser: (setValue) => {
-		// 	// 	console.log("Hi")
-		// 	// 	return setValue ? 'setOn' : 'setOff'; // This could also be an object for more complex
-		// 	// 	// commands
-		// 	// },
-		// 	// get: 'currentSummationDelivered',
-		// 	report: 'METERING_REPORT',
-		// 	reportParser: (report) => {
-		// 		console.log("Hi")
-		// 		return 1;
-		// 	},
-		// 	reportOpts: {
-		// 		configureAttributeReporting: {
-		// 			minInterval: 0, // Minimally once every hour
-		// 			maxInterval: 60000, // Maximally once every ~16 hours
-		// 			minChange: 1,
-		// 		}
-		// 	},
+			// getOpts: {
+			// 	getOnStart: true,
+			// 	// getOnOnline: true,
+			// 	// pollInterval: 30 * 1000, // in ms
+			// },
+
+			// report: 'currentSummationDelivered',
+            // getParser: value => value,
+			// get: 'currentSummationDelivered',
+			// reportParser: (report) => {
+			// 	console.log("")
+			// 	console.log("Hi")
+			// 	console.log(report)
+			// 	return report;
+			// },
+			// reportOpts: {
+			// 	configureAttributeReporting: {
+			// 		minInterval: 0, // No min
+			// 		maxInterval: 60, // Maximally once every minute
+			// 		minChange: 1,
+			// 	}
+			// },
 		// });
 
 
@@ -75,38 +78,63 @@ class MyZigBeeDevice extends ZigBeeDevice {
 		
 
 
-		await this.configureAttributeReporting([
-			{
-			  endpointId: 2,
-			  cluster: CLUSTER.METERING,
-			  attributeName: 'currentSummationDelivered',
-			  minInterval: 0,
-			  maxInterval: 61,
-			  minChange: 1,
-			},
-		  ]);
+		// await this.configureAttributeReporting([
+		// 	{
+		// 	  endpointId: 2,
+		// 	  cluster: CLUSTER.METERING,
+		// 	  attributeName: 'currentSummationDelivered',
+		// 	  minInterval: 0,
+		// 	  maxInterval: 61,
+		// 	  minChange: 1,
+		// 	},
+		// ]);
 	  
-		  // 1.2.) Listen to attribute reports for the above configured attribute reporting
-		  zclNode.endpoints[2].clusters.metering.on('attr.currentSummationDelivered', (currentSummationDelivered) => {
-			this.log("hi")
-			this.log(currentSummationDelivered);
-		  });
+		//   // 1.2.) Listen to attribute reports for the above configured attribute reporting
+		//   zclNode.endpoints[2].clusters.metering.on('attr.currentSummationDelivered', (currentSummationDelivered) => {
+		// 	this.log("hi")
+		// 	this.log(currentSummationDelivered);
+		//   });
 		
+		this.register_Metering(settings.pollInterval)
 		this.log('MyZigBeeDevice has been inited');
 	}
 
-	// async config() {
-	// 	await this.configureAttributeReporting([
-	// 		{
-	// 		//   endpointId: 2,
-	// 		//   cluster: CLUSTER.METERING,
-	// 		//   attributeName: 'currentSummationDelivered',
-	// 		//   minInterval: 0,
-	// 		//   maxInterval: 100,
-	// 		//   minChange: 0,
-	// 		}
-	// 	]);
-	// }
+	async onSettings({ oldSettings, newSettings, changedKeys }) {
+		console.log()
+		console.log("Settings changed")
+		// await this.register_Metering(newSettings.pollInterval)
+	}
+
+	async register_Metering(interval) {
+		this.registerCapability('meter_power', CLUSTER.METERING, { 
+			endpointId: 2,
+			getOpts: {
+				getOnStart: true,
+				// getOnOnline: true,
+				pollInterval: interval * 1000, // in ms
+			}
+		});
+
+
+		// await this.configureAttributeReporting([{
+		// 	cluster: CLUSTER.METERING,
+		// 	attributeName: 'currentSummationDelivered',
+		// 	minInterval: 0,
+		// 	maxInterval: 60,
+		// 	minChange: 1,
+		// }]);
+
+		  
+
+	// 	// this.registerCapability('meter_power.water', CLUSTER.METERING, { 
+	// 	// 	endpointId: 2,
+	// 	// 	getOpts: {
+	// 	// 		getOnStart: true,
+	// 	// 		// getOnOnline: true,
+	// 	// 		pollInterval: interval  * 1000, // in ms
+	// 	// 	}
+	// 	// });
+	}
 }
 
 module.exports = MyZigBeeDevice;
