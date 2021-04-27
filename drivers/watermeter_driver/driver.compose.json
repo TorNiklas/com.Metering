@@ -1,7 +1,7 @@
 {
 	"id": "watermeter_driver",
 	"name": {
-		"en": "watermeter_driver"
+		"en": "Water meter"
 	},
 	"class": "sensor",
 	"capabilities": [
