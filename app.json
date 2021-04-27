@@ -28,7 +28,8 @@
         "name": "Vegard Fladby",
         "email": "vegard.fladby@gmail.com"
       }
-    ],
+    ]
+  },
   "drivers": [
     {
       "id": "watermeter_driver",
