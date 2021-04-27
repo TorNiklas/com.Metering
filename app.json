@@ -22,11 +22,23 @@
     "name": "Tor Niklas Strøm",
     "email": "torniklas@outlook.com"
   },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Tor Niklas Strøm",
+        "email": "torniklas@outlook.com"
+      },
+      {
+        "name": "Vegard Fladby",
+        "email": "vegard.fladby@gmail.com"
+      }
+    ]
+  },
   "drivers": [
     {
       "id": "watermeter_driver",
       "name": {
-        "en": "watermeter_driver"
+        "en": "Water meter"
       },
       "class": "sensor",
       "capabilities": [
